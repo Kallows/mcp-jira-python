@@ -1,9 +1,20 @@
 # MCP JIRA Python 🚀
 
+[![smithery badge](https://smithery.ai/badge/@Kallows/mcp-jira-python)](https://smithery.ai/go/@Kallows/mcp-jira-python)
+
 A Python implementation of a MCP server for JIRA integration. MCP is a communication protocol designed to provide tools to your AI and keep your data secure (and local if you like). The server runs on the same computer as your AI application and the Claude Desktop is the first application to run MCP Servers (and is considered a client. See the examples folder for a simple python MCP client).
 
 ## Installation
 
+### Installing via Smithery
+
+To install JIRA for Claude Desktop automatically via [Smithery](https://smithery.ai/go/@Kallows/mcp-jira-python):
+
+```bash
+npx -y @smithery/cli install @Kallows/mcp-jira-python --client claude
+```
+
+### Manual Installation
 ```bash
 # Install the server locally
 git clone https://github.com/kallows/mcp-jira-python.git 
