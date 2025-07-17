@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/kallows-mcp-jira-python-badge.png)](https://mseep.ai/app/kallows-mcp-jira-python)
+
 # MCP JIRA Python 🚀
 
 A Python implementation of a MCP server for JIRA integration. MCP is a communication protocol designed to provide tools to your AI and keep your data secure (and local if you like). The server runs on the same computer as your AI application and the Claude Desktop is the first application to run MCP Servers (and is considered a client. See the examples folder for a simple python MCP client).
