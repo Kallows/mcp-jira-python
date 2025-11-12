@@ -1,4 +1,22 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Test and environment files
 tests/.env
-tests/__pycache__/
-tests/endpoint_tests/__pycache__/
-tests/unit_tests/__pycache__/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
