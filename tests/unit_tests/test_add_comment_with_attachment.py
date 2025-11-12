@@ -31,29 +31,38 @@ class TestAddCommentWithAttachmentTool(unittest.TestCase):
         # Setup mock responses
         self.mock_jira.add_attachment.return_value = [self.mock_attachment]
         self.mock_jira.add_comment.return_value = self.mock_comment
-        
-        # Test input with base64 encoded file content
-        test_input = {
-            "issueKey": self.test_issue_key,
-            "comment": self.test_comment,
-            "attachment": {
+
+        # Create a temporary test file
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt') as tmp:
+            tmp.write("Test file content")
+            tmp_path = tmp.name
+
+        try:
+            # Test input matching the tool's expected structure
+            test_input = {
+                "issueKey": self.test_issue_key,
+                "comment": self.test_comment,
                 "filename": self.test_file_name,
-                "content": base64.b64encode(self.test_file_content).decode(),
-                "mimeType": "text/plain"
+                "filepath": tmp_path
             }
-        }
-        
-        # Execute tool using asyncio.run
-        result = asyncio.run(self.tool.execute(test_input))
-        
-        # Verify result
-        self.assertEqual(result[0].type, "text")
-        self.assertIn("12345", result[0].text)  # Comment ID
-        self.assertIn(self.test_file_name, result[0].text)  # File name should be in result
-        
-        # Verify JIRA API calls
-        self.mock_jira.add_attachment.assert_called_once()
-        self.mock_jira.add_comment.assert_called_with(
-            self.test_issue_key,
-            self.test_comment
-        )
+
+            # Execute tool using asyncio.run
+            result = asyncio.run(self.tool.execute(test_input))
+
+            # Verify result
+            self.assertEqual(result[0].type, "text")
+            self.assertIn("12345", result[0].text)  # Comment ID
+            self.assertIn(self.test_file_name, result[0].text)  # File name should be in result
+
+            # Verify JIRA API calls
+            self.mock_jira.add_comment.assert_called_with(
+                self.test_issue_key,
+                self.test_comment
+            )
+            self.mock_jira.add_attachment.assert_called_once()
+        finally:
+            # Clean up temp file
+            import os
+            if os.path.exists(tmp_path):
+                os.unlink(tmp_path)
