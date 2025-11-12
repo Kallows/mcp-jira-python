@@ -14,6 +14,8 @@ env/
 # Test and environment files
 tests/.env
 .env
+test_output.log
+*.log
 
 # IDE
 .vscode/
